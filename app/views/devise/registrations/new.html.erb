@@ -22,15 +22,10 @@
   </div>
 
 <br><br>
-  <%= f.fields_for :roles, resource.roles.build do |role| %>
-    <%= check_box_tag "roles[]", "Admin" %>
-    <%= "Admin" %>
-    <br>
-    <%= check_box_tag "roles[]", "Auther" %>
-    <%= "Auther" %>
-    <br>
-    <%= check_box_tag "roles[]", "Developer" %>
-    <%= "Developer" %>
+  <%= f.fields_for :roles, Role.all do |role| %>
+    <%= role.check_box :id, {checked:false}, "#{role.object.id}", false %>
+    <%= role.label :name, "#{role.object.name}" %>
+    
   <% end %>
 
 <br><br>
