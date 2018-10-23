@@ -1,3 +1,20 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+input[type=submit] {
+   border: 0;
+   background-color: #4CAF50;
+   color: white;
+   padding: 14px 25px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   margin : 10px;
+   transition: .3s all ease-in-out;
+}
+
+
+input[type=submit]:hover {
+   background-color: darkolivegreen;
+}

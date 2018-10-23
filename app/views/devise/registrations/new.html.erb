@@ -3,6 +3,13 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
+
+  <div class="field">
+    <p><%= f.label :username %><br />
+    <%= f.text_field :username %></p>
+  </div>
+
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
@@ -22,12 +29,11 @@
   </div>
 
 <br><br>
-  <%= f.fields_for :roles, Role.all do |role| %>
-    <%= role.check_box :id, {checked:false}, "#{role.object.id}", false %>
-    <%= role.label :name, "#{role.object.name}" %>
-    
-  <% end %>
-
+  <% resource.roles << Role.all %>
+ <%= f.fields_for(:roles, include_id: false) do |r| %>
+   <%= r.check_box :id, { checked: false }, r.object.id, false %>
+   <%= r.label :name, r.object.name %><br />
+ <% end %>
 <br><br>
 
   <div class="actions">
