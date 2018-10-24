@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_attributes, only: [:show, :edit, :update, :destroy]
   def index
-    @articles = Article.all
+    @articles = Article.order(:title).page params[:page]
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render xml: @articles}
@@ -11,6 +11,8 @@ class ArticlesController < ApplicationController
   end
  
   def show
+    @article = Article.find(params[:id])
+    @comments = @article.comments.page(params[:page])
   end
  
   def new
