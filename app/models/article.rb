@@ -3,6 +3,8 @@ class Article < ActiveRecord::Base
 	has_many :comments, dependent: :destroy
 	belongs_to :user
 	paginates_per 2
+	has_many :attachments, :as => :attachable, dependent: :destroy
+    accepts_nested_attributes_for :attachments
 	# # validate do |school|
  # #    article.comments.each do |comment|
  # #      next if comment.valid?

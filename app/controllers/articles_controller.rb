@@ -17,6 +17,7 @@ class ArticlesController < ApplicationController
  
   def new
     @article = current_user.articles.build
+    @article.attachments.build
   end
  
   def edit
@@ -50,7 +51,7 @@ class ArticlesController < ApplicationController
  
   private
     def article_params
-      params.require(:article).permit(:title, :text)
+      params.require(:article).permit(:title, :text, attachments_attributes: [:id, :avatar, :_destroy])
     end
 
     def find_attributes

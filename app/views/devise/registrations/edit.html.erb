@@ -4,9 +4,7 @@
   <%= devise_error_messages! %>
 
 
-<%= image_tag @user.avatar.url %>
-<%= image_tag @user.avatar.url(:medium) %>
-<%= image_tag @user.avatar.url(:thumb) %>
+<%= image_tag @user.attachment.avatar.url %>
   <div class="field">
 <%= f.file_field :avatar %>
 </div>

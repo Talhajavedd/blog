@@ -5,12 +5,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
   has_and_belongs_to_many :roles
   has_many :articles
-  accepts_nested_attributes_for :roles 
+  accepts_nested_attributes_for :roles
   validates :email, uniqueness: true
   validate :validate_username
   validates :username, presence: :true, uniqueness: { case_sensitive: false } 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  has_one :attachment, as: :attachable
+  accepts_nested_attributes_for :attachment 
+
+
+  
 	def validate_username
   		if User.where(email: username).exists?
     		errors.add(:username, :invalid)
@@ -47,5 +50,7 @@ class User < ActiveRecord::Base
     	end
   	end
   end
+
+
 
 end
