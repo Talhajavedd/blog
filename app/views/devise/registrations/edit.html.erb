@@ -3,8 +3,9 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-
+<% unless @user.attachment.nil? %>
 <%= image_tag @user.attachment.avatar.url %>
+<%end%>
   <div class="field">
 <%= f.file_field :avatar %>
 </div>
