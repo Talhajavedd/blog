@@ -16,24 +16,20 @@ class AdminsController < ApplicationController
   	@user = User.find(params[:id])
   end
  
-
-  
-
   def create
-    @user = User.new(a)
+    @user = User.new(user_params)
  
     if @user.save
-      flash[:notice] = "Successfully created product."
-      redirect_to @user
+      redirect_to admin_path(@user), notice: "User succesfully created!"
     else
       render 'new'
     end
   end
  
   def update
-
-    if @user.update(configure_permitted_parameters)
-      redirect_to @user
+    @user = User.find(params[:id])
+    if @user.update_without_password(user_params)
+      redirect_to admin_url(@user)
     else
       render 'edit'
     end
@@ -46,15 +42,9 @@ class AdminsController < ApplicationController
   end
  
 
-  def a
-    {
-    |u| u.permit(:username, :remember_me, :email, :password, :password_confirmation, attachment_attributes: [:id, :avatar], roles_attributes: [:id, :name])
-    }
-  end
-
-
   private
-    def article_params
-    end
+  def user_params
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, attachment_attributes: [:id, :avatar])
+  end
 
 end
